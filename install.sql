@@ -1,0 +1,30 @@
+CREATE DATABASE IF NOT EXISTS othisis CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE othisis;
+
+CREATE TABLE IF NOT EXISTS admins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) UNIQUE,
+  password VARCHAR(255),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS posts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  meta_title VARCHAR(255) DEFAULT NULL,
+  meta_description TEXT DEFAULT NULL,
+  content LONGTEXT NOT NULL,
+  featured_image VARCHAR(255) DEFAULT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS newsletter (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL,
+  subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- default admin: admin / password123 (bcrypt)
+INSERT INTO admins (username, password) VALUES ('admin', '$2y$10$KIX/8k6j6E8h0Z4g1GPwUuXq2JvS0wQm7z6x1y2z3a4b5c6d7e8fG');
